@@ -59,7 +59,8 @@ const posts = [
 
 posts.forEach(function (object, index) {
     let rowElement = document.querySelector(".row");
-
+    let temp = object.created.split("-");
+    let dataEu = `${temp[2]}-${temp[1]}-${temp[0]}`
     rowElement.innerHTML += `<div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
@@ -68,7 +69,7 @@ posts.forEach(function (object, index) {
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${object.author.name}</div>
-                        <div class="post-meta__time">${object.created}</div>
+                        <div class="post-meta__time">${dataEu}</div>
                     </div>                    
                 </div>
             </div>
