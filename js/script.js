@@ -58,8 +58,13 @@ const posts = [
 
 
 let rowElement = document.querySelector(".row");
+const postMeta = document.querySelector(".profile-pic");
+
 
 posts.forEach(function (object) {
+
+
+
     rowElement.innerHTML += `<div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
@@ -98,16 +103,32 @@ const likeBtnElement = document.querySelectorAll(".like-button");
 const likeCount = document.querySelectorAll(".js-likes-counter");
 console.log(likeCount);
 
+
 likeBtnElement.forEach((like, index) => {
     like.addEventListener("click", () => {
+
+
+        const isLiked = like.classList.contains("like-button--liked");
         event.preventDefault();
-        likeCount[index].innerHTML++;
-        like.classList.toggle("like-button--liked");
         const postID = like.dataset.postid;
-        let numberLike = document.querySelector(`#like-counter-${postID}`).innerText;
-        arrayID.push(numberLike);
+        const indexOf = arrayID.indexOf(postID);
+
+        if (isLiked) {
+            likeCount[index].innerHTML--;
+            like.classList.remove("like-button--liked");
+            if (arrayID.includes(postID)) {
+                arrayID.splice(indexOf, 1);
+            }
+        }
+        else {
+            likeCount[index].innerHTML++;
+            like.classList.add("like-button--liked");
+            arrayID.push(postID);
+        }
+        console.log(arrayID);
     })
 })
+
 
 // likeBtnElement.addEventListener("click", () => {
 //     likeCount.forEach((el, index) => {
