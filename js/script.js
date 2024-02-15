@@ -56,6 +56,7 @@ const posts = [
     }
 ];
 
+
 let rowElement = document.querySelector(".row");
 
 posts.forEach(function (object) {
@@ -78,7 +79,7 @@ posts.forEach(function (object) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button js-like-button" href="#" data-postid="${object.id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -90,6 +91,23 @@ posts.forEach(function (object) {
             </div>            
         </div>`
 
-
 });
 
+
+const likeBtnElement = document.querySelectorAll(".like-button");
+const likeCount = document.querySelectorAll(".js-likes-counter");
+console.log(likeCount);
+
+likeBtnElement.forEach((like, index) => {
+    like.addEventListener("click", () => {
+        event.preventDefault();
+        likeCount[index].innerHTML++;
+    })
+})
+
+// likeBtnElement.addEventListener("click", () => {
+//     likeCount.forEach((el, index) => {
+//         likeBtnElement.style.color = "blue";
+//         el[index].innerHTML += 1;
+//     })
+// })
