@@ -57,19 +57,14 @@ const posts = [
 ];
 
 
-let rowElement = document.querySelector(".row");
-const postMeta = document.querySelector(".profile-pic");
-
-
-posts.forEach(function (object) {
-
-
+posts.forEach(function (object, index) {
+    let rowElement = document.querySelector(".row");
 
     rowElement.innerHTML += `<div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
                     <div class="post-meta__icon">
-                        <img class="profile-pic" src="${object.author.image}" alt="Phil Mangione">                    
+                        <img class="profile-pic" src="${object.author.image}" alt="${object.author.name}">                    
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${object.author.name}</div>
@@ -96,12 +91,17 @@ posts.forEach(function (object) {
             </div>            
         </div>`
 
+    const postMeta = document.querySelectorAll(".post-meta__icon");
+    if (object.author.image == null) {
+        let initials = object.author.name.split(" ").map((n) => n[0]).join("");
+        postMeta[index].removeChild;
+        postMeta[index].innerHTML = `<div class="profile-pic-default"><span class="profile-pic">${initials}</span></div>`
+    }
 });
 
 const arrayID = [];
 const likeBtnElement = document.querySelectorAll(".like-button");
 const likeCount = document.querySelectorAll(".js-likes-counter");
-console.log(likeCount);
 
 
 likeBtnElement.forEach((like, index) => {
@@ -125,14 +125,5 @@ likeBtnElement.forEach((like, index) => {
             like.classList.add("like-button--liked");
             arrayID.push(postID);
         }
-        console.log(arrayID);
     })
 })
-
-
-// likeBtnElement.addEventListener("click", () => {
-//     likeCount.forEach((el, index) => {
-//         likeBtnElement.style.color = "blue";
-//         el[index].innerHTML += 1;
-//     })
-// })
