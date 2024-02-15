@@ -56,11 +56,13 @@ const posts = [
     }
 ];
 
-
 posts.forEach(function (object, index) {
+    // select the row element in the html page
     let rowElement = document.querySelector(".row");
+    // convert data from US to EU format
     let temp = object.created.split("-");
     let dataEu = `${temp[2]}-${temp[1]}-${temp[0]}`
+    // add element on page
     rowElement.innerHTML += `<div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
@@ -91,36 +93,45 @@ posts.forEach(function (object, index) {
                 </div> 
             </div>            
         </div>`
-
+    // remove the null img and replace it with full name initials
     const postMeta = document.querySelectorAll(".post-meta__icon");
     if (object.author.image == null) {
+        // with this string i split the string in two elements, use map to cicle all and get only the first letter of the two elements, than join it into string
         let initials = object.author.name.split(" ").map((n) => n[0]).join("");
+        // remove and add div element that will replace null imgs. Add css that are already on css file
         postMeta[index].removeChild;
         postMeta[index].innerHTML = `<div class="profile-pic-default"><span class="profile-pic">${initials}</span></div>`
     }
 });
-
+// create empty array for the id counts
 const arrayID = [];
+// select all like buttons and counters
 const likeBtnElement = document.querySelectorAll(".like-button");
 const likeCount = document.querySelectorAll(".js-likes-counter");
 
-
+// for all like btns add an event listenere that will checks if likes btn are already press.
 likeBtnElement.forEach((like, index) => {
     like.addEventListener("click", () => {
 
-
+        // create this variable for the boolean conditions
         const isLiked = like.classList.contains("like-button--liked");
+        // prevent a link to scroll up the page 
         event.preventDefault();
+        // this will get the datasets that already in the html page
         const postID = like.dataset.postid;
+        // create an index to match the index of the array
         const indexOf = arrayID.indexOf(postID);
 
+        // if btn is already press, decrement counter and remove class 
         if (isLiked) {
             likeCount[index].innerHTML--;
             like.classList.remove("like-button--liked");
+            // also if arrayID includes postID variable value, remove from the array the indexof postID
             if (arrayID.includes(postID)) {
                 arrayID.splice(indexOf, 1);
             }
         }
+        // otherwise, increment counter and add class, also push id of the liked post in the arrayID
         else {
             likeCount[index].innerHTML++;
             like.classList.add("like-button--liked");
