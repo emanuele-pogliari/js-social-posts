@@ -111,12 +111,12 @@ const likeCount = document.querySelectorAll(".js-likes-counter");
 
 // for all like btns add an event listenere that will checks if likes btn are already press.
 likeBtnElement.forEach((like, index) => {
-    like.addEventListener("click", () => {
+    like.addEventListener("click", (e) => {
 
         // create this variable for the boolean conditions
         const isLiked = like.classList.contains("like-button--liked");
         // prevent a link to scroll up the page 
-        event.preventDefault();
+        e.preventDefault();
         // this will get the datasets that already in the html page
         const postID = like.dataset.postid;
         // create an index to match the index of the array
